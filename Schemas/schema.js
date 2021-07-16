@@ -28,14 +28,22 @@ const typeDefs = gql(`
     type Deposit {
         id: ID!
         playerId: ID!
-        status: DepositStatus!
-        currency: String!
+        status: [DepositStatus!]
+        currency: [String!]
+    }
+    
+    input DepositFilters {
+         id: ID
+         playerId: ID
+         status: [WithdrawalStatus!]
+         currency: [String!]
+         isLocked: Boolean
     }
     
     type Withdrawal {
         id: ID!
         playerId: ID!
-        status: WithdrawalStatus!
+        status: [WithdrawalStatus!]
         currency: String!
         isLocked: Boolean!
     }
