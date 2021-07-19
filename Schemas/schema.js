@@ -2,22 +2,23 @@ const {gql} = require('apollo-server')
 
 const typeDefs = gql(`
     enum DepositStatus {
-      INITIATED
-      FAILED
-      CONFIRMED
-      PROCESSING
-      CANCELLED
-      DECLINED
+        INITIATED
+        FAILED
+        CONFIRMED
+        PROCESSING
+        CANCELLED
+        DECLINED
     }
+
     enum WithdrawalStatus {
-      INITIATED
-      FAILED
-      IN_PROGRESS
-      CANCELLED
-      PENDING
-      DECLINED
-      PROCESSING
-      CONFIRMED
+        INITIATED
+        FAILED
+        IN_PROGRESS
+        CANCELLED
+        PENDING
+        DECLINED
+        PROCESSING
+        CONFIRMED
     }
 
     type User {
@@ -47,21 +48,18 @@ const typeDefs = gql(`
         isLocked: Boolean
     }
     
+    input WithdrawalFilters {
+         id: ID
+         playerId: ID
+         status: [WithdrawalStatus!]
+         currency: [String!]
+         isLocked: Boolean
+    }
+    
     type Query {
         UserIdByName(name: String!): User
-        Withdrawals(
-            id: ID
-            playerId: ID
-            status: [String]
-            currency: [String]
-            isLocked: Boolean
-        ): [Withdrawal!]!
-        Deposits(
-            id: ID
-            playerId: ID
-            status: [String]
-            currency: [String]
-        ): [Deposit!]!
+        Withdrawals(filter: WithdrawalFilters): [Withdrawal]!
+        Deposits(filter: DepositFilters): [Deposit]!
     }
 `)
 

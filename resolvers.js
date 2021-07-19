@@ -4,7 +4,6 @@ const WITHDRAWALS = require('./Database/WithdrawalDB')
 
 const searchItems = (DB) => {
     return ({filter}) => {
-        console.log(filter)
         const arrOfArgs = Object.entries(filter)
         return DB.filter(deposit => arrOfArgs.every((param) => {
             console.log(param[0], param[1])
@@ -17,14 +16,14 @@ const searchItems = (DB) => {
         }))
     }
 }
-const DepositsDBBind = searchItems(DEPOSITS)
-const WithdrawalsDBBind = searchItems(WITHDRAWALS)
+const searchDeposits = searchItems(DEPOSITS)
+const searchWithdrawals = searchItems(WITHDRAWALS)
 
 const resolvers = {
     Query: {
         UserIdByName: (_, args) => USERS.find(user => args.name === user.username),
-        Withdrawals: (_, args) => WithdrawalsDBBind(args),
-        Deposits: (_, args) => DepositsDBBind(args),
+        Withdrawals: (_, args) => searchWithdrawals(args),
+        Deposits: (_, args) => searchDeposits(args),
     },
 }
 
