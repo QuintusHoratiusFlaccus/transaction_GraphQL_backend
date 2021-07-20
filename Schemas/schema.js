@@ -41,11 +41,11 @@ const typeDefs = gql(`
     }
     
     type Withdrawal {
-        id: ID
-        playerId: ID
-        status: WithdrawalStatus
-        currency: String
-        isLocked: Boolean
+        id: ID!
+        playerId: ID!
+        status: WithdrawalStatus!
+        currency: String!
+        isLocked: Boolean!
     }
     
     input WithdrawalFilters {
@@ -58,8 +58,8 @@ const typeDefs = gql(`
     
     type Query {
         UserIdByName(name: String!): User
-        Withdrawals(filter: WithdrawalFilters): [Withdrawal]!
-        Deposits(filter: DepositFilters): [Deposit]!
+        Withdrawals(filter: WithdrawalFilters): [Withdrawal!]!
+        Deposits(filter: DepositFilters): [Deposit!]!
     }
 `)
 
